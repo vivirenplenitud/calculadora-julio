@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Número Personal - Julio 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .calculator {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin: 20px 0;
+        }
+        
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .input-group input, .input-group select {
+            padding: 15px;
+            font-size: 16px;
+            border: 3px solid #e0e0e0;
+            border-radius: 10px;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+            display: none;
+        }
+        
+        .number-display {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .interpretation {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .interpretation h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .print-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        
+        .print-btn:hover {
+            background: #218838;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            font-style: italic;
+            color: #666;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .calculate-btn, .print-btn {
+                display: none;
+            }
+            .calculator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Tu Número Personal ✨</h1>
+            <p>Descubre tu energía para Julio 2025</p>
+        </div>
+        
+        <div class="calculator">
+            <div class="input-group">
+                <label for="day">Día de Nacimiento:</label>
+                <input type="number" id="day" min="1" max="31" placeholder="Ej: 20">
+            </div>
+            
+            <div class="input-group">
+                <label for="month">Mes de Nacimiento:</label>
+                <select id="month">
+                    <option value="">Selecciona tu mes</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+            
+            <button class="calculate-btn" onclick="calculateNumber()">
+                🔮 Calcular mi Número
+            </button>
+            
+            <div id="result" class="result">
+                <h2>Tu Número para Julio 2025</h2>
+                <div id="numberDisplay" class="number-display"></div>
+                <div id="interpretation" class="interpretation"></div>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir PDF</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>La numerología es una herramienta de autoconocimiento y reflexión personal</p>
+        </div>
+    </div>
+
+    <script>
+        const interpretations = {
+            1: {
+                title: "Número 1 - El Líder",
+                description: "Este mes de julio es tu momento para brillar como líder natural. Tu energía emprendedora está en su punto máximo.",
+                advice: "• Inicia nuevos proyectos que has estado posponiendo\n• Confía en tu intuición para tomar decisiones importantes\n• Tu carisma natural atraerá oportunidades únicas\n• Es momento de ser valiente y tomar la iniciativa\n• Evita ser demasiado dominante con otros"
+            },
+            2: {
+                title: "Número 2 - El Cooperador",
+                description: "Julio te invita a fortalecer tus relaciones y trabajar en equipo. Tu sensibilidad será tu mayor fortaleza.",
+                advice: "• Dedica tiempo a fortalecer vínculos familiares y de amistad\n• Tu capacidad de mediación será muy valiosa este mes\n• Colabora en proyectos grupales, evita trabajar solo\n• Practica la paciencia, los resultados llegarán gradualmente\n• Escucha más de lo que hablas"
+            },
+            3: {
+                title: "Número 3 - El Creativo",
+                description: "Tu creatividad estará desbordante en julio. Es tiempo de expresarte y compartir tus talentos con el mundo.",
+                advice: "• Explora nuevas formas de expresión artística\n• Comunica tus ideas con entusiasmo y alegría\n• Participa en eventos sociales y culturales\n• Tu optimismo contagiará a quienes te rodean\n• Evita dispersarte en demasiados proyectos a la vez"
+            },
+            4: {
+                title: "Número 4 - El Constructor",
+                description: "Julio es tu mes para construir bases sólidas. Tu disciplina y organización te llevarán al éxito.",
+                advice: "• Organiza y estructura tus metas a largo plazo\n• Tu trabajo duro comenzará a dar frutos visibles\n• Mantén rutinas que te den estabilidad y paz mental\n• Es buen momento para inversiones o ahorros\n• Sé paciente, los grandes logros toman tiempo"
+            },
+            5: {
+                title: "Número 5 - El Aventurero",
+                description: "La libertad y el cambio marcan tu julio. Tu espíritu aventurero te abrirá nuevos horizontes.",
+                advice: "• Acepta invitaciones a viajes o nuevas experiencias\n• Tu versatilidad te permitirá adaptarte a cualquier situación\n• Evita comprometerte con proyectos demasiado rígidos\n• Conocerás personas interesantes que ampliarán tu perspectiva\n• Mantén un equilibrio entre aventura y responsabilidad"
+            },
+            6: {
+                title: "Número 6 - El Protector",
+                description: "Tu energía nurturante estará muy activa en julio. Tu hogar y familia serán tu prioridad y fuente de alegría.",
+                advice: "• Dedica tiempo especial a cuidar de tus seres queridos\n• Tu hogar será un refugio de paz y armonía\n• Ayuda a otros, tu generosidad será recompensada\n• Es buen momento para sanación emocional\n• Busca el equilibrio entre dar y recibir"
+            },
+            7: {
+                title: "Número 7 - El Buscador",
+                description: "Julio te invita a la introspección y el crecimiento espiritual. Tu intuición será tu mejor guía.",
+                advice: "• Dedica tiempo a la meditación y reflexión personal\n• Busca conocimiento en temas que realmente te apasionen\n• Tu intuición estará muy aguda, confía en ella\n• Evita multitudes, prefiere momentos de soledad creativa\n• Es momento ideal para estudiar o investigar"
+            },
+            8: {
+                title: "Número 8 - El Materialista",
+                description: "El éxito material y profesional están a tu alcance en julio. Tu ambición te llevará lejos.",
+                advice: "• Enfócate en metas profesionales y financieras\n• Tu liderazgo natural será reconocido y valorado\n• Es excelente momento para negociaciones importantes\n• Mantén el equilibrio entre ambición y ética\n• Tu persistencia será recompensada con creces"
+            },
+            9: {
+                title: "Número 9 - El Humanitario",
+                description: "Tu compasión y sabiduría brillarán en julio. Es tiempo de servir y compartir tu luz con otros.",
+                advice: "• Involúcrate en causas que beneficien a otros\n• Tu sabiduría será buscada por quienes te rodean\n• Es momento de cerrar ciclos y prepararte para nuevos comienzos\n• Tu generosidad atraerá abundancia en todas sus formas\n• Perdona el pasado y enfócate en construir un futuro mejor"
+            }
+        };
+
+        function reduceToSingleDigit(num) {
+            while (num > 9) {
+                num = num.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            }
+            return num;
+        }
+
+        function calculateNumber() {
+            const day = parseInt(document.getElementById('day').value);
+            const month = parseInt(document.getElementById('month').value);
+            
+            if (!day || !month || day < 1 || day > 31) {
+                alert('Por favor, ingresa un día y mes válidos');
+                return;
+            }
+            
+            // Calcular número personal: día + mes + 2025 (2+0+2+5=9)
+            const personalNumber = reduceToSingleDigit(day + month + 9);
+            
+            // Calcular número para julio: número personal + 7 (julio)
+            const julyNumber = reduceToSingleDigit(personalNumber + 7);
+            
+            // Mostrar resultado
+            document.getElementById('numberDisplay').textContent = julyNumber;
+            
+            const interpretation = interpretations[julyNumber];
+            document.getElementById('interpretation').innerHTML = `
+                <h3>${interpretation.title}</h3>
+                <p><strong>${interpretation.description}</strong></p>
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #764ba2; margin-bottom: 10px;">Tu guía para Julio 2025:</h4>
+                    <div style="white-space: pre-line;">${interpretation.advice}</div>
+                </div>
+            `;
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Permitir calcular con Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateNumber();
+            }
+        });
+    </script>
+</body>
+</html>
